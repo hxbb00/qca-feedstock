@@ -15,6 +15,7 @@ cmake --trace ${CMAKE_ARGS} \
     -D CMAKE_BUILD_TYPE=Release \
     -D BUILD_WITH_QT6=ON \
     -D QCA_SUFFIX=qt6 \
+    -D BUILD_TESTS=OFF \
     ${SRC_DIR} || (cat CMakeFiles/CMakeConfigureLog.yaml; false)
 
 ninja -j${CPU_COUNT}
