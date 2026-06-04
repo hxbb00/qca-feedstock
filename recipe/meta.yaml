@@ -25,11 +25,9 @@ requirements:
     - {{ compiler('cxx') }}
   host:
     - qt6-main
-    - qt6-networkauth
     - openssl
   run:
     - qt6-main
-    - qt6-networkauth
     - openssl
 
 # Pass to cmake via the recipe's build script or via extra cmake args:
