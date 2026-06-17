@@ -5,7 +5,7 @@ cd build/
 
 # For cross-compilation from x86_64 to arm64
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" == "1" ]]; then
-    # Use the build platform's qtpaths
+    # Use the build platform's moc
     QT_HOST_PATH="$BUILD_PREFIX"
 else
     QT_HOST_PATH="$PREFIX"
