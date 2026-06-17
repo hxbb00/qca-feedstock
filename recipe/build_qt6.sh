@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# Clean previous CMake configuration
+if [ -d "build" ]; then
+    rm -rf build
+fi
+
 [[ ! -d build ]] && mkdir build/
 cd build/
 
