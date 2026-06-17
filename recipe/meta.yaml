@@ -7,8 +7,6 @@ package:
 source:
   url: https://github.com/KDE/qca/archive/v{{ version }}.tar.gz
   sha256: c8af253cf515263246ea2be91a95978650a6c05d2698f2ba7286d297b352a0d4
-  patches:
-    - enable_language.patch
 
 build:
   number: 0
@@ -18,24 +16,30 @@ requirements:
   build:
     - cmake
     - make  # [unix]
+    - ninja
     - pkg-config
     - {{ compiler('c') }}
     - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
+    - qt6-main    # [build_platform != target_platform]
   host:
-    - qt-main
+    - qt6-main
     - openssl
   run:
-    - qt-main
+    - qt6-main
     - openssl
+
+# Pass to cmake via the recipe's build script or via extra cmake args:
+# -DBUILD_WITH_QT6=ON
+# -DQCA_SUFFIX=qt6
 
 test:
   commands:
-    - test -f ${PREFIX}/lib/libqca-qt5.so  # [linux]
-    - test -d ${PREFIX}/lib/qca-qt5.framework  # [osx]
-    - if not exist %LIBRARY_BIN%\\qca-qt5.dll exit 1  # [win]
-    - qcatool-qt5 --noprompt --newpass= key make rsa 2048 test.key  # [unix]
-    - qcatool-qt5.exe  --noprompt --newpass= key make rsa 2048 test.key  # [win]
+    - test -f ${PREFIX}/lib/libqca-qt6.so  # [linux]
+    - test -d ${PREFIX}/lib/qca-qt6.framework  # [osx]
+    - if not exist %LIBRARY_BIN%\\qca-qt6.dll exit 1  # [win]
+    - qcatool-qt6 --noprompt --newpass= key make rsa 2048 test.key  # [unix]
+    - qcatool-qt6.exe --noprompt --newpass= key make rsa 2048 test.key  # [win]
 
 about:
   home: https://userbase.kde.org/QCA
@@ -51,8 +55,8 @@ about:
     cryptographic library. This allows one to easily change or upgrade crypto
     implementations without even needing to recompile the application! QCA
     should work everywhere Qt does, including Windows/Unix/MacOSX.
-  doc_url: http://delta.affinix.com/docs/qca/
-  dev_url: https://quickgit.kde.org/?p=qca.git
+  doc_url: https://api.kde.org/qca/html/
+  dev_url: https://invent.kde.org/libraries/qca
 
 extra:
   recipe-maintainers:
