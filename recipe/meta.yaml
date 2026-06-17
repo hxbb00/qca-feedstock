@@ -21,6 +21,7 @@ requirements:
     - {{ compiler('c') }}
     - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
+    - qt6-main    # [build_platform != target_platform]
   host:
     - qt6-main
     - openssl
