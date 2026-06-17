@@ -3,6 +3,14 @@
 [[ ! -d build ]] && mkdir build/
 cd build/
 
+# For cross-compilation from x86_64 to arm64
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" == "1" ]]; then
+    # Use the build platform's qtpaths
+    QT_HOST_PATH="$BUILD_PREFIX"
+else
+    QT_HOST_PATH="$PREFIX"
+fi
+
 # "default" channel "qt" creates "plugins" in root of environment
 # Need to put "qca" plugin -- including qca-ossl -- in that folder
 cmake ${CMAKE_ARGS} \
@@ -15,6 +23,7 @@ cmake ${CMAKE_ARGS} \
     -D BUILD_WITH_QT6=ON \
     -D QCA_SUFFIX=qt6 \
     -D BUILD_TESTS=OFF \
+    -D QT_HOST_PATH=${QT_HOST_PATH} \
     ${SRC_DIR}
 
 ninja -j${CPU_COUNT}
