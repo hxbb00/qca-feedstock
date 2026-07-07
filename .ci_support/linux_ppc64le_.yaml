@@ -23,7 +23,7 @@ qt_main:
 qt6_main:
 - '6.11'
 target_platform:
-- linux-64
+- linux-ppc64le
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
